@@ -4,7 +4,8 @@ import Card from 'react-bootstrap/Card';
 import pro from '../images/pika-1698503903324-1x.png'
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-function SampleCard() {
+import { BASE_URL } from '../services/baseurl';
+function SampleCard({home}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -13,27 +14,29 @@ function SampleCard() {
       
 
     <div className='d-flex gap-3'>
+      
 <Card onClick={handleShow} className='shadow-lg rounded' style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={pro} />
+      <Card.Img variant="top" src={home?`${BASE_URL}/uploads/${home.projectImage}`: pro} />
       <Card.Body>
-        <Card.Title className='text-center'>Sky savvy</Card.Title>
+        
+        <Card.Title className='text-center'>{home.title}</Card.Title>
        
       </Card.Body>
     
     </Card>
     <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Project</Modal.Title>
+          <Modal.Title>{home.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body className='p-2 '>
           <div className='row'>
             <div className='col-6'>
-              <img className='rounded' width={'100%'} src={pro}></img>
+              <img className='rounded' width={'100%'} src={home?`${BASE_URL}/uploads/${home.projectImage}`: pro}></img>
             </div>
             <div className='col-6 '>
               <h4>Description</h4>
-              <p className='text-start'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum, dolorum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, quibusdam.</p>
-              <p><span className='fw-bold'>Technolgies Used:</span>  HTML,CSS ,REACT</p>
+              <p className='text-start'>{home.overview}</p>
+              <p><span className='fw-bold'>Technolgies Used:</span>  {home.Language}</p>
             </div>
           </div>
           <div className='p-2 '>
